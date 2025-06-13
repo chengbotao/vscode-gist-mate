@@ -89,7 +89,7 @@ class Logger {
 		return this.#isDebugging;
 	}
 	get timestamp() {
-		return `[${new Date().toISOString().replace(/T/, " ").slice(0, -1)}]`;
+		return `[${new Date().toLocaleString()}]`;
 	}
 	get logLevel() {
 		return this.#logLevel;
