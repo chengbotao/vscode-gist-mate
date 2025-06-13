@@ -33,14 +33,9 @@ class Logger {
 	#appendLine(value: string) {
 		this.output?.appendLine(value);
 	}
-	#logWithLevel(
-		level: LogLevel,
-		message: string,
-		params: unknown[] = []
-	) {
+	#logWithLevel(level: LogLevel, message: string, params: unknown[] = []) {
 		// 级别对应的数值
-		const levelValue =
-			OrderedLevel[level as keyof typeof OrderedLevel];
+		const levelValue = OrderedLevel[level as keyof typeof OrderedLevel];
 
 		// 过滤判断
 		if (this.level < levelValue && !this.#isDebugging) {
@@ -137,7 +132,14 @@ class Logger {
 		this.#logWithLevel("warn", message, params);
 	}
 
-	error(message: string, params: unknown[] = []) {
+	error(message: string, error?: Error | unknown, ...params: unknown[]) {
+		// 处理错误对象
+		if (error instanceof Error) {
+			params = [error, ...params];
+			message = `${message}: ${error.message}`;
+		} else if (error !== undefined) {
+			params = [error, ...params];
+		}
 		this.#logWithLevel("error", message, params);
 	}
 }
