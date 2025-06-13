@@ -33,6 +33,40 @@ class Logger {
 	#appendLine(value: string) {
 		this.output?.appendLine(value);
 	}
+	#logWithLevel(
+		level: LogLevel,
+		message: string,
+		params: unknown[] = []
+	) {
+		// 级别对应的数值
+		const levelValue =
+			OrderedLevel[level as keyof typeof OrderedLevel];
+
+		// 过滤判断
+		if (this.level < levelValue && !this.#isDebugging) {
+			return;
+		}
+
+		// 控制台输出
+		if (this.#isDebugging) {
+			console.log(
+				`[${this.provider!.name}]`,
+				`[${level.toUpperCase()}]`,
+				this.timestamp,
+				message,
+				...params
+			);
+		}
+
+		// OutputChannel输出
+		if (this.level >= levelValue) {
+			this.#appendLine(
+				`${this.timestamp} [${level}] ${message} ${this.formatLogParams(
+					params
+				)}`
+			);
+		}
+	}
 
 	private constructor() {}
 
@@ -84,7 +118,7 @@ class Logger {
 		}
 		return String(value);
 	}
-	private toLoggableParams(params: any[]) {
+	private formatLogParams(params: any[]) {
 		if (params.length === 0) {
 			return "";
 		}
@@ -92,95 +126,19 @@ class Logger {
 		return loggableParams.length !== 0 ? ` \u2014 ${loggableParams}` : "";
 	}
 	debug(message: string, params: unknown[] = []) {
-		if (this.level < OrderedLevel.debug && !this.#isDebugging) {
-			return;
-		}
-
-		// 调试模式输出到控制台
-		if (this.#isDebugging) {
-			console.log(
-				`[${this.provider!.name}]`,
-                "[DEBUG]",
-				this.timestamp,
-				message,
-				...params
-			);
-		}
-		// 仅当级别足够时输出到output面板
-		if (this.level >= OrderedLevel.debug) {
-			this.#appendLine(
-				`${this.timestamp} [DEBUG] ${message} ${this.toLoggableParams(params)}`
-			);
-		}
+		this.#logWithLevel("debug", message, params);
 	}
 
 	log(message: string, params: unknown[] = []) {
-		if (this.level < OrderedLevel.info && !this.#isDebugging) {
-			return;
-		}
-
-		// 调试模式输出到控制台
-		if (this.#isDebugging) {
-			console.log(
-				`[${this.provider!.name}]`,
-                "[INFO]",
-				this.timestamp,
-				message,
-				...params
-			);
-		}
-		// 仅当级别足够时输出到output面板
-		if (this.level >= OrderedLevel.info) {
-			this.#appendLine(
-				`${this.timestamp} [INFO] ${message} ${this.toLoggableParams(params)}`
-			);
-		}
+		this.#logWithLevel("info", message, params);
 	}
 
 	warn(message: string, params: unknown[] = []) {
-		if (this.level < OrderedLevel.warn && !this.#isDebugging) {
-			return;
-		}
-
-		// 调试模式输出到控制台
-		if (this.#isDebugging) {
-			console.log(
-				`[${this.provider!.name}]`,
-                "[WARN]",
-				this.timestamp,
-				message,
-				...params
-			);
-		}
-		// 仅当级别足够时输出到output面板
-		if (this.level >= OrderedLevel.warn) {
-			this.#appendLine(
-				`${this.timestamp} [WARN] ${message} ${this.toLoggableParams(params)}`
-			);
-		}
+		this.#logWithLevel("warn", message, params);
 	}
 
 	error(message: string, params: unknown[] = []) {
-		if (this.level < OrderedLevel.error && !this.#isDebugging) {
-			return;
-		}
-
-		// 调试模式输出到控制台
-		if (this.#isDebugging) {
-			console.log(
-				`[${this.provider!.name}]`,
-				this.timestamp,
-                "[ERROR]",
-				message,
-				...params
-			);
-		}
-		// 仅当级别足够时输出到output面板
-		if (this.level >= OrderedLevel.error) {
-			this.#appendLine(
-				`${this.timestamp} [ERROR] ${message} ${this.toLoggableParams(params)}`
-			);
-		}
+		this.#logWithLevel("error", message, params);
 	}
 }
 
