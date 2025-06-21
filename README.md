@@ -1,71 +1,49 @@
-# vscode-gist-mate README
+# GistMate - 你的 GitHub Gist 高效管理助手 (Beta)
 
-This is the README for your extension "vscode-gist-mate". After writing up a brief description, we recommend including the following sections.
+## 🚧 当前功能 (部分完成)
 
-## Features
+- [x] 设置 GitHub Access Token (安全存储在 VS Code 凭据管理器中)
+- [x] 从编辑器选区通过命令面板创建新 Gist
+- [x] 选择 Gist 可见性 (公开/私密)
+- [ ] 自动复制 Gist URL 到剪贴板
+- [ ] 管理现有 Gist (编辑、删除、列表查看)
+- [ ] 本地与远程 Gist 同步
+- [ ] 多文件 Gist 支持
+- [ ] 收藏常用 Gist
+- [ ] 组织 Gist 到标签/文件夹
 
-Describe specific features of your extension including screenshots of your extension in action. Image paths are relative to this README file.
+## 🌟 已实现功能详解
 
-For example if there is an image subfolder under your extension project workspace:
+### 设置 GitHub 访问凭证
 
-\!\[feature X\]\(images/feature-x.png\)
+1. 打开命令面板 (`Ctrl+Shift+P` 或 `Cmd+Shift+P`)
+2. 输入 `GistMate: 设置 Access Token`
+3. 粘贴你的 GitHub Personal Access Token (需要 `gist` 权限)
+4. 凭证会被安全存储，无需再次输入
 
-> Tip: Many popular extensions utilize animations. This is an excellent way to show off your extension! We recommend short, focused animations that are easy to follow.
+### 创建新 Gist
 
-## Requirements
+- **从命令面板**
+  1. 打开命令面板
+  2. 输入 `GistMate: 创建新 Gist`
+  3. 按照提示输入内容、文件名和描述
 
-If you have any requirements or dependencies, add a section describing those and how to install and configure them.
+## 🚀 即将推出的功能
 
-## Extension Settings
+- 完整的 Gist 管理界面 (列表、搜索、筛选)
+- 与 GitHub Gist API 全面集成
+- 本地缓存与离线支持
+- 更丰富的文件类型支持
+- 自定义快捷键配置
 
-Include if your extension adds any VS Code settings through the `contributes.configuration` extension point.
+## ⚙️ 配置选项
 
-For example:
+## 🤝 参与测试与反馈
 
-This extension contributes the following settings:
+GistMate 目前处于 Beta 阶段，我们欢迎你的反馈来帮助改进:
 
-* `myExtension.enable`: Enable/disable this extension.
-* `myExtension.thing`: Set to `blah` to do something.
+## 📄 许可证
 
-## Known Issues
+## 🌟 感谢支持
 
-Calling out known issues can help limit users opening duplicate issues against your extension.
-
-## Release Notes
-
-Users appreciate release notes as you update your extension.
-
-### 1.0.0
-
-Initial release of ...
-
-### 1.0.1
-
-Fixed issue #.
-
-### 1.1.0
-
-Added features X, Y, and Z.
-
----
-
-## Following extension guidelines
-
-Ensure that you've read through the extensions guidelines and follow the best practices for creating your extension.
-
-* [Extension Guidelines](https://code.visualstudio.com/api/references/extension-guidelines)
-
-## Working with Markdown
-
-You can author your README using Visual Studio Code. Here are some useful editor keyboard shortcuts:
-
-* Split the editor (`Cmd+\` on macOS or `Ctrl+\` on Windows and Linux).
-* Toggle preview (`Shift+Cmd+V` on macOS or `Shift+Ctrl+V` on Windows and Linux).
-* Press `Ctrl+Space` (Windows, Linux, macOS) to see a list of Markdown snippets.
-
-## For more information
-
-* [Visual Studio Code's Markdown Support](http://code.visualstudio.com/docs/languages/markdown)
-* [Markdown Syntax Reference](https://help.github.com/articles/markdown-basics/)
-
-**Enjoy!**
+感谢你尝试 GistMate! 完整功能即将推出，敬请期待。

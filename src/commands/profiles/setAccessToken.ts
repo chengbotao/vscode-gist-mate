@@ -29,7 +29,7 @@ export const create = [
 			const accessToken = await window.showInputBox({
 				title: "GitHub 认证",
 				prompt: "请输入你的 GitHub Access Token",
-				placeHolder: "ghp_XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+				placeHolder: "ghp_",
 				password: true,
 				validateInput: (value) => {
 					if (!value || value.trim().length === 0) {

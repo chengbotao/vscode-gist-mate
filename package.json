@@ -2,10 +2,12 @@
 	"name": "vscode-gist-mate",
 	"displayName": "GistMate",
 	"description": "GistMate 是你的 Gist 好伙伴，帮助你快速创建、管理和同步 Gists。通过简单的操作,你可以轻松地将代码片段、文档或其他内容上传到 GitHub Gist,并在多台设备上保持同步。",
-	"version": "0.0.1",
+	"version": "1.0.0",
+	"publisher": "learn-by-doing",
 	"engines": {
 		"vscode": "^1.100.0"
 	},
+	"icon": "logo.png",
 	"categories": [
 		"Other"
 	],
@@ -37,7 +39,7 @@
 		]
 	},
 	"scripts": {
-		"vscode:prepublish": "pnpm run compile",
+		"vscode:prepublish": "npm run compile",
 		"compile": "tsc -p ./",
 		"watch": "tsc -watch -p ./",
 		"pretest": "pnpm run compile && pnpm run lint",
@@ -56,6 +58,7 @@
 		"typescript": "^5.8.3"
 	},
 	"dependencies": {
-		"@octokit/rest": "^22.0.0"
+		"@octokit/rest": "^22.0.0",
+		"@vscode/vsce": "^3.5.0"
 	}
 }
