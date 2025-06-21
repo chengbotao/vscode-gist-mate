@@ -1,45 +1,61 @@
 {
-  "name": "vscode-gist-mate",
-  "displayName": "GistMate",
-  "description": "GistMate 是你的 Gist 好伙伴，帮助你快速创建、管理和同步 Gists。通过简单的操作,你可以轻松地将代码片段、文档或其他内容上传到 GitHub Gist,并在多台设备上保持同步。",
-  "version": "0.0.1",
-  "engines": {
-    "vscode": "^1.100.0"
-  },
-  "categories": [
-    "Other"
-  ],
-  "activationEvents": [],
-  "main": "./out/extension.js",
-  "contributes": {
-    "commands": [
-      {
-        "command": "vscode-gist-mate.helloWorld",
-        "title": "Hello World"
-      },
-      {
-        "command": "vscode-gist-mate.showDate",
-        "title": "showDate"
-      }
-    ]
-  },
-  "scripts": {
-    "vscode:prepublish": "pnpm run compile",
-    "compile": "tsc -p ./",
-    "watch": "tsc -watch -p ./",
-    "pretest": "pnpm run compile && pnpm run lint",
-    "lint": "eslint src",
-    "test": "vscode-test"
-  },
-  "devDependencies": {
-    "@types/vscode": "^1.100.0",
-    "@types/mocha": "^10.0.10",
-    "@types/node": "20.x",
-    "@typescript-eslint/eslint-plugin": "^8.31.1",
-    "@typescript-eslint/parser": "^8.31.1",
-    "eslint": "^9.25.1",
-    "typescript": "^5.8.3",
-    "@vscode/test-cli": "^0.0.10",
-    "@vscode/test-electron": "^2.5.2"
-  }
+	"name": "vscode-gist-mate",
+	"displayName": "GistMate",
+	"description": "GistMate 是你的 Gist 好伙伴，帮助你快速创建、管理和同步 Gists。通过简单的操作,你可以轻松地将代码片段、文档或其他内容上传到 GitHub Gist,并在多台设备上保持同步。",
+	"version": "0.0.1",
+	"engines": {
+		"vscode": "^1.100.0"
+	},
+	"categories": [
+		"Other"
+	],
+	"activationEvents": [],
+	"main": "./out/extension.js",
+	"contributes": {
+		"configuration": {
+			"type": "object",
+			"title": "GistMate configuration",
+			"properties": {
+				"gist.defaultPrivacy": {
+					"type": "boolean",
+					"default": false,
+					"description": "将所有新创建的 Gist 默认设置为私密"
+				}
+			}
+		},
+		"commands": [
+			{
+				"command": "extension.gistMate.create",
+				"title": "Create New Gist",
+				"category": "GistMate"
+			},
+			{
+				"command": "gistMate.profile.setToken",
+				"title": "Set GitHub Access Token",
+				"category": "GistMate"
+			}
+		]
+	},
+	"scripts": {
+		"vscode:prepublish": "pnpm run compile",
+		"compile": "tsc -p ./",
+		"watch": "tsc -watch -p ./",
+		"pretest": "pnpm run compile && pnpm run lint",
+		"lint": "eslint src",
+		"test": "vscode-test"
+	},
+	"devDependencies": {
+		"@types/mocha": "^10.0.10",
+		"@types/node": "20.x",
+		"@types/vscode": "^1.100.0",
+		"@typescript-eslint/eslint-plugin": "^8.31.1",
+		"@typescript-eslint/parser": "^8.31.1",
+		"@vscode/test-cli": "^0.0.10",
+		"@vscode/test-electron": "^2.5.2",
+		"eslint": "^9.25.1",
+		"typescript": "^5.8.3"
+	},
+	"dependencies": {
+		"@octokit/rest": "^22.0.0"
+	}
 }

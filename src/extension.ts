@@ -1,33 +1,47 @@
 /*
  * @Author: Chengbotao
- * @Description: 
+ * @Description:
  * @Contact: https://github.com/chengbotao
  */
-// The module 'vscode' contains the VS Code extensibility API
-// Import the module and reference it with the alias vscode in your code below
-import {ExtensionContext, window, ExtensionMode, commands} from 'vscode';
+import {
+	ExtensionContext,
+	window,
+	ExtensionMode,
+	commands,
+	Disposable,
+} from "vscode";
+import { logger } from "./logger/logger";
+import { supportedCommands } from "./commands";
 
-// This method is called when your extension is activated
-// Your extension is activated the very first time the command is executed
+const disposables: { commands: Disposable[]; listeners: Disposable[] } = {
+	commands: [],
+	listeners: [],
+};
 export function activate(context: ExtensionContext) {
-	// The command has been defined in the package.json file
-	// Now provide the implementation of the command with registerCommand
-	// The commandId parameter must match the command field in package.json
-	const disposable = commands.registerCommand('vscode-gist-mate.helloWorld', () => {
-		// The code you place here will be executed every time your command is executed
-		// Display a message box to the user
-		window.showInformationMessage('Hello VSCode from GistMate!');
-	});
-
-	context.subscriptions.push(disposable);
-
-	const disposables = commands.registerCommand('vscode-gist-mate.showDate', () => {
-		// The code you place here will be executed every time your command is executed
-		// Display a message box to the user
-		const date = new Date();
-		window.showWarningMessage(date.toDateString());
+	logger.configure(
+		{
+			name: "GistMate",
+			createChannel(name) {
+				const channel = window.createOutputChannel(name);
+				context.subscriptions.push(channel);
+				return channel;
+			},
+		},
+		"debug",
+		context.extensionMode === ExtensionMode.Development
+	);
+	logger.debug("extension activate");
+	disposables.commands = supportedCommands.map((supportedCommand) => {
+		const [command, commandInit] = supportedCommand;
+		const disposable = commands.registerCommand(command, ()=>{
+			return commandInit(context);
+		});
+		context.subscriptions.push(disposable);
+		return disposable;
 	});
 }
 
 // This method is called when your extension is deactivated
-export function deactivate() {}
+export function deactivate() {
+	disposables.commands.forEach((d) => d.dispose());
+}
